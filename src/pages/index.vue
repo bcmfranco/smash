@@ -21,25 +21,30 @@ export default {
   methods: {
     golpeP1() {
       if (this.last_player_golpe !== 1) {
-        console.log("Golpe del P1");
         this.last_player_golpe = 1;
         this.player_active = 2;
-        console.log("Jugador activo:", this.player_active);
         const diceValue = this.rollDice();
-        this.energy += diceValue;
-        console.log("Valor del dado:", diceValue);
-        console.log("Energy:", this.energy);
+
+
+        if(diceValue > this.energy){
+          this.energy += diceValue;
+          console.log("Player 1. Viene con", this.energy, "y se golpea con", diceValue, "queda con", this.energy);
+        } else {
+          console.log("Fail: Venía con", this.energy, "y se intentó golpear con", diceValue);
+        }
       }
     },
     golpeP2() {
-      console.log("Golpe del P2");
       this.last_player_golpe = 2;
       this.player_active = 1;
-      console.log("Jugador activo:", this.player_active);
       const diceValue = this.rollDice();
-      this.energy += diceValue;
-      console.log("Valor del dado:", diceValue);
-      console.log("Energy:", this.energy);
+
+      if(diceValue > this.energy){
+        this.energy += diceValue;
+        console.log("Player 2. Viene con", this.energy, "y se golpea con", diceValue, "queda con", this.energy);
+      } else {
+        console.log("Fail: Venía con", this.energy, "y se intentó golpear con", diceValue);
+      }
     },
     rollDice() {
       const diceValue = Math.floor(Math.random() * 6) + 1;
