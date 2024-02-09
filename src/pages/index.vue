@@ -15,7 +15,7 @@ export default {
     return {
       energy: 1,
       player_active: 1,
-      last_player_golpe: 1
+      last_player_golpe: null,
     }
   },
   methods: {
@@ -25,25 +25,30 @@ export default {
         this.last_player_golpe = 1;
         this.player_active = 2;
         console.log("Jugador activo:", this.player_active);
-        this.rollDice();
+        const diceValue = this.rollDice();
+        this.energy += diceValue;
+        console.log("Valor del dado:", diceValue);
+        console.log("Energy:", this.energy);
       }
     },
     golpeP2() {
-      if (this.last_player_golpe !== 2) {
-        console.log("Golpe del P2");
-        this.last_player_golpe = 2;
-        this.player_active = 1;
-        console.log("Jugador activo:", this.player_active);
-        this.rollDice();
-      }
+      console.log("Golpe del P2");
+      this.last_player_golpe = 2;
+      this.player_active = 1;
+      console.log("Jugador activo:", this.player_active);
+      const diceValue = this.rollDice();
+      this.energy += diceValue;
+      console.log("Valor del dado:", diceValue);
+      console.log("Energy:", this.energy);
     },
     rollDice() {
       const diceValue = Math.floor(Math.random() * 6) + 1;
-      console.log("Valor del dado:", diceValue);
+      return diceValue;
     }
   }
 }
 </script>
+
 
 <style scoped>
   /* Aquí van tus estilos CSS */
