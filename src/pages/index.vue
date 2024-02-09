@@ -15,7 +15,7 @@ export default {
     return {
       energy: 1,
       player_active: 1,
-      last_player_golpe: null
+      last_player_golpe: 1
     }
   },
   methods: {
