@@ -2,25 +2,32 @@
   <div id="container">
     <h1 id="logo">SMASH</h1>
 
+    <div id="pointer">
+      <div class="player-score">{{ points.player_1 }}</div>
+      <div class="player-score">{{ points.player_2 }}</div>
+    </div>
+
+
     <div id="court">
       <div id="mensenger">{{ fading_msg }}</div>
 
       <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
         <div id="ball"></div>
       </div>
-
     </div>
 
-    <div id="controlers">
-      <div class="points">{{ points.player_1 }}</div>
-      <div class="points">{{ points.player_2 }}</div>
-      <button class="racket" id="racket_p1" @click="golpeP1">P1</button>
-      <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
+    <div id="joystick">
+      <div id="dice">
+        <div :class="{ 'dice-roll': isRolling }" v-if="!diceRolling">{{ diceValue }}</div>
+      </div>
+
+      <div id="controlers">
+        <button class="racket" id="racket_p1" @click="golpeP1">P1</button>
+        <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
+      </div>
     </div>
 
-    <div id="dice">
-      <div :class="{ 'dice-roll': isRolling }" v-if="!diceRolling">{{ diceValue }}</div>
-    </div>
+
 
     <div id="buttoner">
       <div id="restart_btn" @click="restartMatch">Restart Match</div>
@@ -159,6 +166,12 @@ h1#logo {
   margin-bottom: 20px; /* Espacio inferior */
 }
 
+#joystick{
+  border: 1px solid #cccccc; /* Cambié el color del borde */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Reduje la opacidad de la sombra */
+}
 
 #controlers {
   display: grid;
@@ -167,10 +180,6 @@ h1#logo {
   width: 300px;
   height: 150px;
   padding: 20px;
-  border: 1px solid #cccccc; /* Cambié el color del borde */
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Reduje la opacidad de la sombra */
 }
 
 .points {
@@ -273,5 +282,27 @@ h1#logo {
 .dice-roll {
   transform: scale(1.5); /* Escala para agrandar ligeramente */
 }
+
+#pointer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.player-score {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 10px;
+  background-color: #fff;
+}
+
 
 </style>
