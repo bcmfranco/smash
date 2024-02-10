@@ -25,12 +25,13 @@ export default {
         this.player_active = 2;
         const diceValue = this.rollDice();
 
+        console.log("Viene con", this.energy);
 
         if(diceValue > this.energy){
           this.energy += diceValue;
-          console.log("Player 1. Viene con", this.energy, "y se golpea con", diceValue, "queda con", this.energy);
+          console.log("y se golpea con", diceValue, "queda con", this.energy);
         } else {
-          console.log("Fail: Venía con", this.energy, "y se intentó golpear con", diceValue);
+          console.log("y se intentó golpear con", diceValue, "FAIL");
         }
       }
     },
@@ -39,11 +40,13 @@ export default {
       this.player_active = 1;
       const diceValue = this.rollDice();
 
+      console.log("Viene con", this.energy);
+
       if(diceValue > this.energy){
         this.energy += diceValue;
-        console.log("Player 2. Viene con", this.energy, "y se golpea con", diceValue, "queda con", this.energy);
+        console.log("y se golpea con", diceValue, "queda con", this.energy);
       } else {
-        console.log("Fail: Venía con", this.energy, "y se intentó golpear con", diceValue);
+        console.log("y se intentó golpear con", diceValue, "FAIL");
       }
     },
     rollDice() {
