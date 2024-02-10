@@ -167,19 +167,12 @@ h1#logo {
 }
 
 #joystick{
+  width: 300px;
+  height: 200px;
   border: 1px solid #cccccc; /* Cambié el color del borde */
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Reduje la opacidad de la sombra */
-}
-
-#controlers {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  width: 300px;
-  height: 150px;
-  padding: 20px;
 }
 
 .points {
@@ -193,8 +186,17 @@ h1#logo {
   align-items: center;
 }
 
+#controlers {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
 .racket {
-  width: 100%;
+  width: 80px;
+  height: 80px;
   font-size: 24px;
   border: none;
   background-color: #66cc66; /* Cambié el color del botón */
@@ -269,8 +271,8 @@ h1#logo {
   font-weight: bold;
   color: #ffffff; /* Color blanco */
   background-color: #b0bec5; /* Color de fondo similar al color de un dado */
-  width: 100px; /* Ancho */
-  height: 100px; /* Altura */
+  width: 80px; /* Ancho */
+  height: 80px; /* Altura */
   border-radius: 10px; /* Borde redondeado */
   display: flex;
   justify-content: center;
