@@ -3,6 +3,8 @@
     <h1>SMASH</h1>
 
     <div id="court">
+      <div class="points">{{ points.player_1 }}</div>
+      <div class="points">{{ points.player_2 }}</div>
       <button class="racket" id="racket_p1" @click="golpeP1">P1</button>
       <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
     </div>
@@ -17,8 +19,8 @@ export default {
       player_active: 1,
       last_player_golpe: null,
       points: {
-        player_1: 5,
-        player_2: 5,
+        player_1: 0,
+        player_2: 0,
       }
     }
   },
@@ -129,9 +131,19 @@ export default {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 
+  .points{
+    font-size: 24px;
+    border: none;
+    background-color: #cfdee3;
+    color: #000000;
+    border-radius: 10px;
+    text-align: center;
+    display: grid;
+    align-items: center;
+  }
+
   .racket {
     width: 100%;
-    height: 100%;
     font-size: 24px;
     border: none;
     background-color: #a3d6e8; /* Color verde similar a una cancha de tenis */
