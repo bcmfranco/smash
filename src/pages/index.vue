@@ -2,6 +2,10 @@
   <div id="container">
     <h1>SMASH</h1>
 
+    <div id="court">
+      <div id="mensenger">{{ fading_msg }}</div>
+    </div>
+
     <div id="controlers">
       <div class="points">{{ points.player_1 }}</div>
       <div class="points">{{ points.player_2 }}</div>
@@ -25,7 +29,8 @@ export default {
       points: {
         player_1: 0,
         player_2: 0,
-      }
+      },
+      fading_msg: null,
     }
   },
   methods: {
@@ -39,13 +44,13 @@ export default {
         this.player_active = 2;
         const diceValue = this.rollDice();
 
-        console.log("Viene con", this.energy);
+        this.fading_msg = "Viene con "+this.energy;
 
         if(diceValue - this.energy > 0){
           this.energy = diceValue - this.energy;
-          console.log("y se golpea con", diceValue, "queda con", this.energy);
+          this.fading_msg += " y se golpea con "+diceValue+" queda con "+this.energy;
         } else {
-          console.log("y se intentó golpear con", diceValue, "FAIL");
+          this.fading_msg += " y se intentó golpear con"+diceValue+" FAIL";
           this.missPoint();
           this.wonPoint(2);
           console.log(this.points);
@@ -57,13 +62,13 @@ export default {
       this.player_active = 1;
       const diceValue = this.rollDice();
 
-      console.log("Viene con", this.energy);
+      this.fading_msg = "Viene con "+this.energy;
 
       if(diceValue - this.energy > 0){
           this.energy = diceValue - this.energy;
-        console.log("y se golpea con", diceValue, "queda con", this.energy);
+          this.fading_msg += " y se golpea con "+diceValue+" queda con "+this.energy;
       } else {
-        console.log("y se intentó golpear con", diceValue, "FAIL");
+        this.fading_msg += " y se intentó golpear con"+diceValue+"FAIL";
         this.missPoint();
         this.wonPoint(1);
         console.log(this.points);
@@ -187,4 +192,16 @@ h1 {
 #restart_btn:hover {
   background-color: #ff3333; /* Color rojo más oscuro al pasar el ratón */
 }
+
+#court{
+  border: 2px solid black;
+  width: 400px;
+  height: 150px;
+  margin: 10px auto 20px auto;
+  border-radius: 15px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
 </style>
