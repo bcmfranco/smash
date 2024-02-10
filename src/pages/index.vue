@@ -44,13 +44,13 @@ export default {
         this.player_active = 2;
         const diceValue = this.rollDice();
 
-        this.fading_msg = "Viene con "+this.energy;
+        this.fading_msg = this.energy+" >>> ";
 
         if(diceValue - this.energy > 0){
           this.energy = diceValue - this.energy;
-          this.fading_msg += " y se golpea con "+diceValue+" queda con "+this.energy;
+          this.fading_msg += diceValue+" >>> "+this.energy;
         } else {
-          this.fading_msg += " y se intentó golpear con"+diceValue+" FAIL";
+          this.fading_msg += diceValue+" FAIL";
           this.missPoint();
           this.wonPoint(2);
           console.log(this.points);
@@ -62,13 +62,14 @@ export default {
       this.player_active = 1;
       const diceValue = this.rollDice();
 
-      this.fading_msg = "Viene con "+this.energy;
+      this.fading_msg = this.energy+" >>> ";
 
       if(diceValue - this.energy > 0){
-          this.energy = diceValue - this.energy;
-          this.fading_msg += " y se golpea con "+diceValue+" queda con "+this.energy;
+        this.energy = diceValue - this.energy;
+        this.fading_msg += diceValue+" >>> "+this.energy;
       } else {
-        this.fading_msg += " y se intentó golpear con"+diceValue+"FAIL";
+        this.fading_msg += diceValue+" FAIL";
+        this.missPoint();
         this.missPoint();
         this.wonPoint(1);
         console.log(this.points);
