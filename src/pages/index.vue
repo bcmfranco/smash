@@ -18,6 +18,8 @@
       <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
     </div>
 
+    <div id="dice">{{ this.diceValue}}</div>
+
     <div id="buttoner">
       <div id="restart_btn" @click="restartMatch">Restart Match</div>
     </div>
@@ -36,27 +38,28 @@ export default {
         player_2: 0,
       },
       fading_msg: null,
-      showElement: true
+      showElement: true,
+      diceValue: 1,
     }
   },
   methods: {
     rollDice() {
-      const diceValue = Math.floor(Math.random() * 6) + 1;
-      return diceValue;
+      this.diceValue = Math.floor(Math.random() * 6) + 1;
+      return this.diceValue;
     },
     golpeP1() {
       if (this.last_player_golpe !== 1) {
         this.last_player_golpe = 1;
         this.player_active = 2;
-        const diceValue = this.rollDice();
+        this.diceValue = this.rollDice();
 
         this.fading_msg = this.energy+" >>> ";
 
-        if(diceValue - this.energy > 0){
-          this.energy = diceValue - this.energy;
-          this.fading_msg += diceValue+" >>> "+this.energy;
+        if(this.diceValue - this.energy > 0){
+          this.energy = this.diceValue - this.energy;
+          this.fading_msg += this.diceValue+" >>> "+this.energy;
         } else {
-          this.fading_msg += diceValue+" FAIL";
+          this.fading_msg += this.diceValue+" FAIL";
           this.missPoint();
           this.wonPoint(2);
           console.log(this.points);
@@ -66,15 +69,15 @@ export default {
     golpeP2() {
       this.last_player_golpe = 2;
       this.player_active = 1;
-      const diceValue = this.rollDice();
+      this.diceValue = this.rollDice();
 
       this.fading_msg = this.energy+" >>> ";
 
-      if(diceValue - this.energy > 0){
-        this.energy = diceValue - this.energy;
-        this.fading_msg += diceValue+" >>> "+this.energy;
+      if(this.diceValue - this.energy > 0){
+        this.energy = this.diceValue - this.energy;
+        this.fading_msg += this.diceValue+" >>> "+this.energy;
       } else {
-        this.fading_msg += diceValue+" FAIL";
+        this.fading_msg += this.diceValue+" FAIL";
         this.missPoint();
         this.missPoint();
         this.wonPoint(1);
@@ -241,4 +244,20 @@ h1#logo {
   display: flex;
   flex-direction: row-reverse; /* Dirección invertida */
 }
+
+#dice {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffffff; /* Color blanco */
+  background-color: #b0bec5; /* Color de fondo similar al color de un dado */
+  width: 100px; /* Ancho */
+  height: 100px; /* Altura */
+  border-radius: 10px; /* Borde redondeado */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+  margin: 10px auto;
+}
+
 </style>
