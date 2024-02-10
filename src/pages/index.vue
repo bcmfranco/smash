@@ -4,6 +4,11 @@
 
     <div id="court">
       <div id="mensenger">{{ fading_msg }}</div>
+
+      <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
+        <div id="ball"></div>
+      </div>
+
     </div>
 
     <div id="controlers">
@@ -31,6 +36,7 @@ export default {
         player_2: 0,
       },
       fading_msg: null,
+      showElement: true
     }
   },
   methods: {
@@ -204,6 +210,29 @@ h1 {
   display: grid;
   justify-items: center;
   align-items: center;
+}
+
+#barr{
+  width: 300px;
+  height: 30px;
+  background-color: white;
+  display: flex;
+}
+
+#barr #ball{
+  height: 100%;
+  width: 30px;
+  background-color: red;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row; /* Dirección normal */
+}
+
+.flex-row-reverse {
+  display: flex;
+  flex-direction: row-reverse; /* Dirección invertida */
 }
 
 </style>
