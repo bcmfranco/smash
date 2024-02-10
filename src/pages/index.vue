@@ -18,7 +18,9 @@
       <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
     </div>
 
-    <div id="dice">{{ this.diceValue}}</div>
+    <div id="dice">
+      <div :class="{ 'dice-roll': isRolling }" v-if="!diceRolling">{{ diceValue }}</div>
+    </div>
 
     <div id="buttoner">
       <div id="restart_btn" @click="restartMatch">Restart Match</div>
@@ -40,11 +42,19 @@ export default {
       fading_msg: null,
       showElement: true,
       diceValue: 1,
+      diceRolling: false,
     }
   },
   methods: {
     rollDice() {
-      this.diceValue = Math.floor(Math.random() * 6) + 1;
+
+      this.diceRolling = true;
+
+      setTimeout(() => {
+        this.diceValue = Math.floor(Math.random() * 6) + 1;
+        this.diceRolling = false;
+      },1000);
+
       return this.diceValue;
     },
     golpeP1() {
@@ -258,6 +268,10 @@ h1#logo {
   align-items: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
   margin: 10px auto;
+}
+
+.dice-roll {
+  transform: scale(1.5); /* Escala para agrandar ligeramente */
 }
 
 </style>
