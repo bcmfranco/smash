@@ -129,7 +129,7 @@ export default {
 }
 
 #container {
-  background-color: #d6e8a3;
+  background-color: #f2f2f2; /* Cambié el color de fondo para un aspecto más claro */
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -141,6 +141,7 @@ export default {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  color: #333333; /* Cambié el color del texto del título */
 }
 
 #controlers {
@@ -150,17 +151,17 @@ h1 {
   width: 300px;
   height: 150px;
   padding: 20px;
-  border: 1px solid black;
+  border: 1px solid #cccccc; /* Cambié el color del borde */
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Reduje la opacidad de la sombra */
 }
 
 .points {
   font-size: 24px;
   border: none;
-  background-color: #cfdee3;
-  color: #000000;
+  background-color: #e6e6e6; /* Cambié el color de fondo */
+  color: #333333; /* Cambié el color del texto */
   border-radius: 10px;
   text-align: center;
   display: grid;
@@ -171,15 +172,15 @@ h1 {
   width: 100%;
   font-size: 24px;
   border: none;
-  background-color: #a3d6e8; /* Color verde similar a una cancha de tenis */
-  color: #000000; /* Color del texto */
+  background-color: #66cc66; /* Cambié el color del botón */
+  color: #ffffff; /* Cambié el color del texto */
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .racket:hover {
-  background-color: #89bdcf; /* Color verde más oscuro al pasar el ratón */
+  background-color: #4CAF50; /* Cambié el color al pasar el ratón */
 }
 
 #buttoner {
@@ -201,8 +202,8 @@ h1 {
   background-color: #ff3333; /* Color rojo más oscuro al pasar el ratón */
 }
 
-#court{
-  border: 2px solid black;
+#court {
+  border: 2px solid #999999; /* Cambié el color del borde */
   width: 400px;
   height: 150px;
   margin: 10px auto 20px auto;
@@ -212,17 +213,20 @@ h1 {
   align-items: center;
 }
 
-#barr{
+#barr {
   width: 300px;
   height: 30px;
-  background-color: white;
+  background-color: #e6e6e6; /* Cambié el color de fondo */
   display: flex;
+  align-items: center; /* Centrar verticalmente */
+  border-radius: 15px; /* Redondear los bordes */
+  overflow: hidden; /* Ocultar el contenido que desborda */
 }
 
-#barr #ball{
+#barr #ball {
   height: 100%;
   width: 30px;
-  background-color: red;
+  background-color: #ff3333; /* Cambié el color del punto */
 }
 
 .flex-row {
@@ -234,5 +238,4 @@ h1 {
   display: flex;
   flex-direction: row-reverse; /* Dirección invertida */
 }
-
 </style>
