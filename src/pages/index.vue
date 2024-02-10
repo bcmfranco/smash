@@ -40,7 +40,6 @@ export default {
     return {
       energy: 0,
       player_active: 1,
-      last_player_golpe: null,
       points: {
         player_1: 0,
         player_2: 0,
@@ -63,7 +62,6 @@ export default {
       return this.diceValue;
     },
     golpeP1() {
-      this.last_player_golpe = 1;
       this.player_active = 2;
       this.diceValue = this.rollDice();
       this.fading_msg = this.energy;
@@ -84,7 +82,6 @@ export default {
       }
     },
     golpeP2() {
-      this.last_player_golpe = 2;
       this.player_active = 1;
       this.diceValue = this.rollDice();
       this.fading_msg = this.energy + " >>> ";
