@@ -2,7 +2,7 @@
   <div id="container">
     <h1>SMASH</h1>
 
-    <div id="court">
+    <div id="controlers">
       <div class="points">{{ points.player_1 }}</div>
       <div class="points">{{ points.player_2 }}</div>
       <button class="racket" id="racket_p1" @click="golpeP1">P1</button>
@@ -130,7 +130,7 @@ h1 {
   margin-bottom: 20px;
 }
 
-#court {
+#controlers {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
