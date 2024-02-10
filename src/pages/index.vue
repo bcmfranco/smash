@@ -32,6 +32,9 @@
 </template>
 
 <script>
+
+  // Hay algo muy mal con el player_active
+
 export default {
   data() {
     return {
@@ -56,30 +59,28 @@ export default {
       setTimeout(() => {
         this.diceValue = Math.floor(Math.random() * 6) + 1;
         this.diceRolling = false;
-      }, 1000);
+      }, 200);
       return this.diceValue;
     },
     golpeP1() {
-      if (this.last_player_golpe !== 1) {
-        this.last_player_golpe = 1;
-        this.player_active = 2;
-        this.diceValue = this.rollDice();
-        this.fading_msg = this.energy;
+      this.last_player_golpe = 1;
+      this.player_active = 2;
+      this.diceValue = this.rollDice();
+      this.fading_msg = this.energy;
+      this.fading_2 = this.energy;
+      if (this.diceValue - this.energy > 0) {
+        this.energy = this.diceValue - this.energy;
+        this.fading_msg += this.diceValue + " >>> " + this.energy;
         this.fading_2 = this.energy;
-        if (this.diceValue - this.energy > 0) {
-          this.energy = this.diceValue - this.energy;
-          this.fading_msg += this.diceValue + " >>> " + this.energy;
-          this.fading_2 = this.energy;
-        } else {
-          this.fading_msg += this.diceValue + " FAIL";
-          this.fading_2 = "Fail";
-          this.missPoint();
-          this.wonPoint(2);
-          this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
-          setTimeout(() => {
-            this.courtBackgroundColor = '#f2f2f2'; // Restaurar color de fondo después de 1 segundo
-          }, 1000);
-        }
+      } else {
+        this.fading_msg += this.diceValue + " FAIL";
+        this.fading_2 = "Fail";
+        this.missPoint();
+        this.wonPoint(2);
+        this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
+        setTimeout(() => {
+          this.courtBackgroundColor = '#f2f2f2'; // Restaurar color de fondo después de 1 segundo
+        }, 1000);
       }
     },
     golpeP2() {
