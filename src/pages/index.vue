@@ -17,8 +17,8 @@ export default {
       player_active: 1,
       last_player_golpe: null,
       points: {
-        player_1: 0,
-        player_2: 0,
+        player_1: 5,
+        player_2: 5,
       }
     }
   },
@@ -35,8 +35,8 @@ export default {
 
         console.log("Viene con", this.energy);
 
-        if(diceValue > this.energy){
-          this.energy += diceValue;
+        if(diceValue - this.energy > 0){
+          this.energy = diceValue - this.energy;
           console.log("y se golpea con", diceValue, "queda con", this.energy);
         } else {
           console.log("y se intentó golpear con", diceValue, "FAIL");
@@ -53,8 +53,8 @@ export default {
 
       console.log("Viene con", this.energy);
 
-      if(diceValue > this.energy){
-        this.energy += diceValue;
+      if(diceValue - this.energy > 0){
+          this.energy = diceValue - this.energy;
         console.log("y se golpea con", diceValue, "queda con", this.energy);
       } else {
         console.log("y se intentó golpear con", diceValue, "FAIL");
@@ -70,9 +70,18 @@ export default {
     wonPoint(player) {
       if (player === 1) {
         this.points.player_1++; // Sumar un punto al jugador 1
+        if(this.points.player_1 > 6){
+          this.wonSet(1);
+        }
       } else if (player === 2) {
         this.points.player_2++; // Sumar un punto al jugador 2
+        if(this.points.player_2 > 6){
+          this.wonSet(2);
+        }
       }
+    },
+    wonSet(player){
+      console.log(player, "won the set");
     }
 
   }
