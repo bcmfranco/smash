@@ -8,6 +8,10 @@
       <button class="racket" id="racket_p1" @click="golpeP1">P1</button>
       <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
     </div>
+
+    <div id="buttoner">
+      <div id="restart_btn" @click="restartMatch">Restart Match</div>
+    </div>
   </div>
 </template>
 
@@ -84,6 +88,14 @@ export default {
     },
     wonSet(player){
       console.log(player, "won the set");
+    },
+    restartMatch() {
+      // Reinicia el puntaje y el estado del juego
+      this.points.player_1 = 0;
+      this.points.player_2 = 0;
+      this.energy = 0;
+      this.last_player_golpe = null;
+      this.player_active = 1;
     }
 
   }
@@ -97,63 +109,82 @@ export default {
 
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-  * {
-    font-family: Roboto;
-  }
+* {
+  font-family: Roboto;
+}
 
-  #container {
-    background-color: #d6e8a3;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+#container {
+  background-color: #d6e8a3;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  #court {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    width: 300px;
-    height: 150px;
-    padding: 20px;
-    border: 1px solid black;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+#court {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 300px;
+  height: 150px;
+  padding: 20px;
+  border: 1px solid black;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
-  .points{
-    font-size: 24px;
-    border: none;
-    background-color: #cfdee3;
-    color: #000000;
-    border-radius: 10px;
-    text-align: center;
-    display: grid;
-    align-items: center;
-  }
+.points {
+  font-size: 24px;
+  border: none;
+  background-color: #cfdee3;
+  color: #000000;
+  border-radius: 10px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+}
 
-  .racket {
-    width: 100%;
-    font-size: 24px;
-    border: none;
-    background-color: #a3d6e8; /* Color verde similar a una cancha de tenis */
-    color: #000000; /* Color del texto */
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+.racket {
+  width: 100%;
+  font-size: 24px;
+  border: none;
+  background-color: #a3d6e8; /* Color verde similar a una cancha de tenis */
+  color: #000000; /* Color del texto */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .racket:hover {
-    background-color: #89bdcf; /* Color verde más oscuro al pasar el ratón */
-  }
+.racket:hover {
+  background-color: #89bdcf; /* Color verde más oscuro al pasar el ratón */
+}
+
+#buttoner {
+  margin-top: 20px;
+}
+
+#restart_btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ff6666; /* Color rojo */
+  color: #ffffff; /* Color del texto */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#restart_btn:hover {
+  background-color: #ff3333; /* Color rojo más oscuro al pasar el ratón */
+}
 </style>
