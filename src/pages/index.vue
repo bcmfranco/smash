@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <h1>SMASH</h1>
+    <h1 id="logo">SMASH</h1>
 
     <div id="court">
       <div id="mensenger">{{ fading_msg }}</div>
@@ -138,11 +138,14 @@ export default {
   align-items: center;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333333; /* Cambié el color del texto del título */
+h1#logo {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffffff; /* Color blanco */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+  margin-bottom: 20px; /* Espacio inferior */
 }
+
 
 #controlers {
   display: grid;
