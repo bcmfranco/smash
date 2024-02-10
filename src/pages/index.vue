@@ -16,6 +16,10 @@ export default {
       energy: 0,
       player_active: 1,
       last_player_golpe: null,
+      points: {
+        player_1: 0,
+        player_2: 0,
+      }
     }
   },
   methods: {
@@ -37,6 +41,8 @@ export default {
         } else {
           console.log("y se intentó golpear con", diceValue, "FAIL");
           this.missPoint();
+          this.wonPoint(2);
+          console.log(this.points);
         }
       }
     },
@@ -53,12 +59,22 @@ export default {
       } else {
         console.log("y se intentó golpear con", diceValue, "FAIL");
         this.missPoint();
+        this.wonPoint(1);
+        console.log(this.points);
       }
     },
     missPoint(){
       this.energy = 0;
       console.log("!", this.energy);
+    },
+    wonPoint(player) {
+      if (player === 1) {
+        this.points.player_1++; // Sumar un punto al jugador 1
+      } else if (player === 2) {
+        this.points.player_2++; // Sumar un punto al jugador 2
+      }
     }
+
   }
 }
 </script>
