@@ -13,12 +13,16 @@
 export default {
   data() {
     return {
-      energy: 1,
+      energy: 0,
       player_active: 1,
       last_player_golpe: null,
     }
   },
   methods: {
+    rollDice() {
+      const diceValue = Math.floor(Math.random() * 6) + 1;
+      return diceValue;
+    },
     golpeP1() {
       if (this.last_player_golpe !== 1) {
         this.last_player_golpe = 1;
@@ -32,6 +36,7 @@ export default {
           console.log("y se golpea con", diceValue, "queda con", this.energy);
         } else {
           console.log("y se intentó golpear con", diceValue, "FAIL");
+          this.missPoint();
         }
       }
     },
@@ -47,11 +52,12 @@ export default {
         console.log("y se golpea con", diceValue, "queda con", this.energy);
       } else {
         console.log("y se intentó golpear con", diceValue, "FAIL");
+        this.missPoint();
       }
     },
-    rollDice() {
-      const diceValue = Math.floor(Math.random() * 6) + 1;
-      return diceValue;
+    missPoint(){
+      this.energy = 0;
+      console.log("!", this.energy);
     }
   }
 }
