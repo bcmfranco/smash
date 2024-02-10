@@ -101,6 +101,7 @@ export default {
       this.energy = 0;
       this.last_player_golpe = null;
       this.player_active = 1;
+      this.fading_msg = null;
     }
 
   }
