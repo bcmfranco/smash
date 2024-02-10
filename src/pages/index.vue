@@ -9,7 +9,7 @@
 
 
     <div id="court">
-      <div id="mensenger">{{ fading_msg }}</div>
+      <div id="mensenger">{{ this.fading_2 }}</div>
 
       <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
         <div id="ball"></div>
@@ -47,6 +47,7 @@ export default {
         player_2: 0,
       },
       fading_msg: null,
+      fadding_2: null,
       showElement: true,
       diceValue: 1,
       diceRolling: false,
@@ -70,13 +71,16 @@ export default {
         this.player_active = 2;
         this.diceValue = this.rollDice();
 
-        this.fading_msg = this.energy+" >>> ";
+        this.fading_msg = this.energy;
+        this.fading_2 = this.energy;
 
         if(this.diceValue - this.energy > 0){
           this.energy = this.diceValue - this.energy;
           this.fading_msg += this.diceValue+" >>> "+this.energy;
+          this.fading_2 = this.energy;
         } else {
           this.fading_msg += this.diceValue+" FAIL";
+          this.fading_2 = "Fail";
           this.missPoint();
           this.wonPoint(2);
           console.log(this.points);
@@ -89,12 +93,16 @@ export default {
       this.diceValue = this.rollDice();
 
       this.fading_msg = this.energy+" >>> ";
+      this.fading_2 = this.energy;
 
       if(this.diceValue - this.energy > 0){
         this.energy = this.diceValue - this.energy;
         this.fading_msg += this.diceValue+" >>> "+this.energy;
+        this.fading_2 = this.energy;
       } else {
         this.fading_msg += this.diceValue+" FAIL";
+        this.fading_2 = "FAIL";
+
         this.missPoint();
         this.missPoint();
         this.wonPoint(1);
