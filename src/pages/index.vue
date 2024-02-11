@@ -4,6 +4,9 @@
 
 
     <div id="joystick">
+      <div id="dice">
+        <div>{{ dice }}</div>
+      </div>
 
       <div id="controlers">
         <button class="racket" id="racket_p1" @click="shot(1)">P1</button>
@@ -31,12 +34,13 @@ export default {
       fading_msg: null,
       showElement: true,
       diceRolling: false,
+      dice: 1
     }
   },
   methods: {
     rollDice() {
-      var dice = Math.floor(Math.random() * 6) + 1;
-      return dice;
+      this.dice = Math.floor(Math.random() * 6) + 1;
+      return this.dice;
     },
     getPoint(player){
 
@@ -53,11 +57,12 @@ export default {
     shot(player) {
       var shot_power = this.rollDice();
 
-      console.log("energy: ",this.energy, "power", shot_power);
+      console.log("energy: ",this.energy, "power:", shot_power);
 
       if(shot_power > this.energy){
         console.log("hi");
         this.energy = shot_power - this.energy;
+        console.log("new energy: ",this.energy);
       } else {
         console.log("hao");
         this.energy = 0;
