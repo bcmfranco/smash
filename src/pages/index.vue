@@ -39,11 +39,18 @@ export default {
       return dice;
     },
     shot(player) {
-      console.log("golpeó el player", player);
-
       var shot_power = this.rollDice();
 
-      console.log("shot_poewer", shot_power);
+      console.log("energy: ",this.energy, "power", shot_power);
+
+      if(shot_power > this.energy){
+        console.log("hi");
+        this.energy = shot_power - this.energy;
+      } else {
+        console.log("hao");
+        this.energy = 0;
+      }
+
     }
 
   }
