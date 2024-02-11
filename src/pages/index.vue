@@ -40,6 +40,9 @@ export default {
   methods: {
     rollDice() {
       this.dice = Math.floor(Math.random() * 6) + 1;
+
+      console.log("dice", this.dice);
+
       return this.dice;
     },
     getPoint(player){
