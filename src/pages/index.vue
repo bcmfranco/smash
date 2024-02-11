@@ -7,6 +7,13 @@
       <div class="player-score">{{ points.player_2 }}</div>
     </div>
 
+    <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
+      <!-- <div id="mensenger">{{ this.fading_2 }}</div> -->
+      <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
+        <div id="ball"></div>
+      </div>
+    </div>
+
 
     <div id="joystick">
       <div id="dice">
@@ -65,6 +72,15 @@ export default {
     shot(player) {
       var shot_power = this.rollDice();
 
+
+      if(player === 1){
+        var anti_player = 2;
+        this.player_active = 2;
+      } else {
+        var anti_player = 1;
+        this.player_active = 1;
+      }
+
       console.log("energy: ",this.energy, "power:", shot_power);
 
       if(shot_power > this.energy){
@@ -75,12 +91,6 @@ export default {
         console.log("hao");
         this.energy = 0;
 
-        if(player === 1){
-          var anti_player = 2;
-        } else {
-          var anti_player = 1;
-        }
-
         this.getPoint(anti_player);
       }
     },
@@ -89,7 +99,8 @@ export default {
       this.points.player_1 = 0;
       this.points.player_2 = 0;
       this.energy = 0;
-
+      this.player_active = 1;
+      
       console.log("marcador", this.points.player_1, " - ", this.points.player_2);
     }
 
