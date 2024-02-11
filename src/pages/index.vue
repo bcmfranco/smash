@@ -38,6 +38,17 @@ export default {
       var dice = Math.floor(Math.random() * 6) + 1;
       return dice;
     },
+    getPoint(player){
+
+      if(player === 1){
+        this.points.player_1++;
+      } else {
+        this.points.player_2++;
+      }
+
+      console.log("marcador", this.points.player_1, " - ", this.points.player_2);
+
+    },
     shot(player) {
       var shot_power = this.rollDice();
 
@@ -49,6 +60,15 @@ export default {
       } else {
         console.log("hao");
         this.energy = 0;
+
+        if(player === 1){
+          var anti_player = 2;
+        } else {
+          var anti_player = 1;
+        }
+
+        this.getPoint(anti_player);
+
       }
 
     }
