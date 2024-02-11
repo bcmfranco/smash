@@ -2,6 +2,11 @@
   <div id="container">
     <h1 id="logo">SMASH</h1>
 
+    <div id="pointer">
+      <div class="player-score">{{ points.player_1 }}</div>
+      <div class="player-score">{{ points.player_2 }}</div>
+    </div>
+
 
     <div id="joystick">
       <div id="dice">
@@ -236,6 +241,27 @@ h1#logo {
 
 .dice-roll {
   transform: scale(1.5); /* Escala para agrandar ligeramente */
+}
+
+#pointer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.player-score {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 10px;
+  background-color: #fff;
 }
 
 </style>
