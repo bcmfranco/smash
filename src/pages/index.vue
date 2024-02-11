@@ -2,24 +2,28 @@
   <div id="container">
     <h1 id="logo">SMASH</h1>
 
-    <div id="court">
-      <div id="mensenger">{{ fading_msg }}</div>
+    <div id="pointer">
+      <div class="player-score">{{ points.player_1 }}</div>
+      <div class="player-score">{{ points.player_2 }}</div>
+    </div>
 
+    <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
+      <div id="mensenger">{{ this.energy }}</div>
       <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
         <div id="ball"></div>
       </div>
-
     </div>
 
-    <div id="controlers">
-      <div class="points">{{ points.player_1 }}</div>
-      <div class="points">{{ points.player_2 }}</div>
-      <button class="racket" id="racket_p1" @click="golpeP1">P1</button>
-      <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
-    </div>
 
-    <div id="dice">
-      <div :class="{ 'dice-roll': isRolling }" v-if="!diceRolling">{{ diceValue }}</div>
+    <div id="joystick">
+      <div id="dice">
+        <div>{{ dice }}</div>
+      </div>
+
+      <div id="controlers">
+        <button class="racket" id="racket_p1" @click="shot(1)">P1</button>
+        <button class="racket" id="racket_p2" @click="shot(2)">P2</button>
+      </div>
     </div>
 
     <div id="buttoner">
@@ -29,110 +33,95 @@
 </template>
 
 <script>
+
+  // Hay algo muy mal con el player_active
+
 export default {
   data() {
     return {
       energy: 0,
       player_active: 1,
-      last_player_golpe: null,
       points: {
         player_1: 0,
         player_2: 0,
       },
       fading_msg: null,
+      fadding_2: null,
       showElement: true,
-      diceValue: 1,
       diceRolling: false,
+      dice: 1,
+      courtBackgroundColor: '#f2f2f2', // Color de fondo inicial del #court,
     }
   },
   methods: {
     rollDice() {
+      this.dice = Math.floor(Math.random() * 6) + 1;
+      console.log("dice", this.dice);
 
-      this.diceRolling = true;
-
-      setTimeout(() => {
-        this.diceValue = Math.floor(Math.random() * 6) + 1;
-        this.diceRolling = false;
-      },1000);
-
-      return this.diceValue;
+      return this.dice;
     },
-    golpeP1() {
-      if (this.last_player_golpe !== 1) {
-        this.last_player_golpe = 1;
-        this.player_active = 2;
-        this.diceValue = this.rollDice();
+    getPoint(player){
 
-        this.fading_msg = this.energy+" >>> ";
+      console.log("punto para", player);
 
-        if(this.diceValue - this.energy > 0){
-          this.energy = this.diceValue - this.energy;
-          this.fading_msg += this.diceValue+" >>> "+this.energy;
-        } else {
-          this.fading_msg += this.diceValue+" FAIL";
-          this.missPoint();
-          this.wonPoint(2);
-          console.log(this.points);
-        }
-      }
-    },
-    golpeP2() {
-      this.last_player_golpe = 2;
-      this.player_active = 1;
-      this.diceValue = this.rollDice();
-
-      this.fading_msg = this.energy+" >>> ";
-
-      if(this.diceValue - this.energy > 0){
-        this.energy = this.diceValue - this.energy;
-        this.fading_msg += this.diceValue+" >>> "+this.energy;
+      if(player === 1){
+        this.points.player_1++;
       } else {
-        this.fading_msg += this.diceValue+" FAIL";
-        this.missPoint();
-        this.missPoint();
-        this.wonPoint(1);
-        console.log(this.points);
+        this.points.player_2++;
       }
+
+      console.log("marcador", this.points.player_1, " - ", this.points.player_2);
     },
-    missPoint(){
-      this.energy = 0;
-      console.log("!", this.energy);
-    },
-    wonPoint(player) {
-      if (player === 1) {
-        this.points.player_1++; // Sumar un punto al jugador 1
-        if(this.points.player_1 > 6){
-          this.wonSet(1);
-        }
-      } else if (player === 2) {
-        this.points.player_2++; // Sumar un punto al jugador 2
-        if(this.points.player_2 > 6){
-          this.wonSet(2);
-        }
+    shot(player) {
+      var shot_power = this.rollDice();
+
+
+      if(player === 1){
+        var anti_player = 2;
+        this.player_active = 2;
+      } else {
+        var anti_player = 1;
+        this.player_active = 1;
       }
-    },
-    wonSet(player){
-      console.log(player, "won the set");
+
+      console.log("energy: ",this.energy, "power:", shot_power);
+
+      if(shot_power > this.energy){
+        console.log("hi");
+        this.energy = shot_power - this.energy;
+
+        console.log("new energy: ",this.energy);
+      } else {
+        console.log("hao");
+        this.energy = 0;
+        this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
+        setTimeout(() => {
+          this.courtBackgroundColor = '#f2f2f2'; // Restaurar color de fondo después de 1 segundo
+        }, 1000);
+
+        this.getPoint(anti_player);
+      }
     },
     restartMatch() {
       // Reinicia el puntaje y el estado del juego
       this.points.player_1 = 0;
       this.points.player_2 = 0;
       this.energy = 0;
-      this.last_player_golpe = null;
       this.player_active = 1;
-      this.fading_msg = null;
+      this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
+      setTimeout(() => {
+        this.courtBackgroundColor = '#f2f2f2'; // Restaurar color de fondo después de 1 segundo
+      }, 1000);
+      
+      console.log("marcador", this.points.player_1, " - ", this.points.player_2);
     }
-
   }
 }
 </script>
 
-
 <style scoped>
-  /* Aquí van tus estilos CSS */
+/* Aquí van tus estilos CSS */
 </style>
-
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
@@ -142,7 +131,7 @@ export default {
 }
 
 #container {
-  background-color: #f2f2f2; /* Cambié el color de fondo para un aspecto más claro */
+  background-color: #f2f2f2;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -154,49 +143,53 @@ export default {
 h1#logo {
   font-size: 48px;
   font-weight: bold;
-  color: #ffffff; /* Color blanco */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
-  margin-bottom: 20px; /* Espacio inferior */
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
 }
 
-
-#controlers {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+#joystick {
   width: 300px;
-  height: 150px;
-  padding: 20px;
-  border: 1px solid #cccccc; /* Cambié el color del borde */
+  height: 200px;
+  border: 1px solid #cccccc;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Reduje la opacidad de la sombra */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .points {
   font-size: 24px;
   border: none;
-  background-color: #e6e6e6; /* Cambié el color de fondo */
-  color: #333333; /* Cambié el color del texto */
+  background-color: #e6e6e6;
+  color: #333333;
   border-radius: 10px;
   text-align: center;
   display: grid;
   align-items: center;
 }
 
+#controlers {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
 .racket {
-  width: 100%;
+  width: 80px;
+  height: 80px;
   font-size: 24px;
   border: none;
-  background-color: #66cc66; /* Cambié el color del botón */
-  color: #ffffff; /* Cambié el color del texto */
+  background-color: #66cc66;
+  color: #ffffff;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .racket:hover {
-  background-color: #4CAF50; /* Cambié el color al pasar el ratón */
+  background-color: #4caf50;
 }
 
 #buttoner {
@@ -206,8 +199,8 @@ h1#logo {
 #restart_btn {
   padding: 10px 20px;
   font-size: 18px;
-  background-color: #ff6666; /* Color rojo */
-  color: #ffffff; /* Color del texto */
+  background-color: #ff6666;
+  color: #ffffff;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -215,11 +208,11 @@ h1#logo {
 }
 
 #restart_btn:hover {
-  background-color: #ff3333; /* Color rojo más oscuro al pasar el ratón */
+  background-color: #ff3333;
 }
 
 #court {
-  border: 2px solid #999999; /* Cambié el color del borde */
+  border: 2px solid #999999;
   width: 400px;
   height: 150px;
   margin: 10px auto 20px auto;
@@ -227,51 +220,94 @@ h1#logo {
   display: grid;
   justify-items: center;
   align-items: center;
+  transition: background-color 1s ease; /* Transición de color de fondo */
 }
 
 #barr {
   width: 300px;
   height: 30px;
-  background-color: #e6e6e6; /* Cambié el color de fondo */
+  background-color: #e6e6e6;
   display: flex;
-  align-items: center; /* Centrar verticalmente */
-  border-radius: 15px; /* Redondear los bordes */
-  overflow: hidden; /* Ocultar el contenido que desborda */
+  align-items: center;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 #barr #ball {
   height: 100%;
   width: 30px;
-  background-color: #ff3333; /* Cambié el color del punto */
+  background-color: #ff3333;
 }
 
 .flex-row {
   display: flex;
-  flex-direction: row; /* Dirección normal */
+  flex-direction: row;
 }
 
 .flex-row-reverse {
   display: flex;
-  flex-direction: row-reverse; /* Dirección invertida */
+  flex-direction: row-reverse;
 }
 
 #dice {
   font-size: 48px;
   font-weight: bold;
-  color: #ffffff; /* Color blanco */
-  background-color: #b0bec5; /* Color de fondo similar al color de un dado */
-  width: 100px; /* Ancho */
-  height: 100px; /* Altura */
-  border-radius: 10px; /* Borde redondeado */
+  color: #ffffff;
+  background-color: #b0bec5;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   margin: 10px auto;
 }
 
 .dice-roll {
-  transform: scale(1.5); /* Escala para agrandar ligeramente */
+  transform: scale(1.5);
+}
+
+#pointer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.player-score {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 10px;
+  background-color: #fff;
+}
+
+#pointer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.player-score {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 10px;
+  background-color: #fff;
 }
 
 </style>
