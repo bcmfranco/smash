@@ -46,7 +46,8 @@ export default {
       fading_msg: null,
       showElement: true,
       diceRolling: false,
-      dice: 1
+      dice: 1,
+      courtBackgroundColor: '#f2f2f2', // Color de fondo inicial del #court
     }
   },
   methods: {
@@ -90,6 +91,10 @@ export default {
       } else {
         console.log("hao");
         this.energy = 0;
+        this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
+        setTimeout(() => {
+          this.courtBackgroundColor = '#f2f2f2'; // Restaurar color de fondo después de 1 segundo
+        }, 1000);
 
         this.getPoint(anti_player);
       }
