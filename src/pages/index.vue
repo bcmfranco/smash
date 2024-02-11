@@ -8,7 +8,7 @@
     </div>
 
     <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
-      <!-- <div id="mensenger">{{ this.fading_2 }}</div> -->
+      <div id="mensenger">{{ this.energy }}</div>
       <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
         <div id="ball"></div>
       </div>
@@ -87,6 +87,7 @@ export default {
       if(shot_power > this.energy){
         console.log("hi");
         this.energy = shot_power - this.energy;
+
         console.log("new energy: ",this.energy);
       } else {
         console.log("hao");
