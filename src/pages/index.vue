@@ -2,24 +2,13 @@
   <div id="container">
     <h1 id="logo">SMASH</h1>
 
-    <div id="court">
-      <div id="mensenger">{{ fading_msg }}</div>
 
-      <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
-        <div id="ball"></div>
+    <div id="joystick">
+
+      <div id="controlers">
+        <button class="racket" id="racket_p1" @click="shot(1)">P1</button>
+        <button class="racket" id="racket_p2" @click="shot(2)">P2</button>
       </div>
-
-    </div>
-
-    <div id="controlers">
-      <div class="points">{{ points.player_1 }}</div>
-      <div class="points">{{ points.player_2 }}</div>
-      <button class="racket" id="racket_p1" @click="golpeP1">P1</button>
-      <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
-    </div>
-
-    <div id="dice">
-      <div :class="{ 'dice-roll': isRolling }" v-if="!diceRolling">{{ diceValue }}</div>
     </div>
 
     <div id="buttoner">
@@ -41,87 +30,20 @@ export default {
       },
       fading_msg: null,
       showElement: true,
-      diceValue: 1,
       diceRolling: false,
     }
   },
   methods: {
     rollDice() {
-
-      this.diceRolling = true;
-
-      setTimeout(() => {
-        this.diceValue = Math.floor(Math.random() * 6) + 1;
-        this.diceRolling = false;
-      },1000);
-
-      return this.diceValue;
+      var dice = Math.floor(Math.random() * 6) + 1;
+      return dice;
     },
-    golpeP1() {
-      if (this.last_player_golpe !== 1) {
-        this.last_player_golpe = 1;
-        this.player_active = 2;
-        this.diceValue = this.rollDice();
+    shot(player) {
+      console.log("golpeó el player", player);
 
-        this.fading_msg = this.energy+" >>> ";
+      var shot_power = this.rollDice();
 
-        if(this.diceValue - this.energy > 0){
-          this.energy = this.diceValue - this.energy;
-          this.fading_msg += this.diceValue+" >>> "+this.energy;
-        } else {
-          this.fading_msg += this.diceValue+" FAIL";
-          this.missPoint();
-          this.wonPoint(2);
-          console.log(this.points);
-        }
-      }
-    },
-    golpeP2() {
-      this.last_player_golpe = 2;
-      this.player_active = 1;
-      this.diceValue = this.rollDice();
-
-      this.fading_msg = this.energy+" >>> ";
-
-      if(this.diceValue - this.energy > 0){
-        this.energy = this.diceValue - this.energy;
-        this.fading_msg += this.diceValue+" >>> "+this.energy;
-      } else {
-        this.fading_msg += this.diceValue+" FAIL";
-        this.missPoint();
-        this.missPoint();
-        this.wonPoint(1);
-        console.log(this.points);
-      }
-    },
-    missPoint(){
-      this.energy = 0;
-      console.log("!", this.energy);
-    },
-    wonPoint(player) {
-      if (player === 1) {
-        this.points.player_1++; // Sumar un punto al jugador 1
-        if(this.points.player_1 > 6){
-          this.wonSet(1);
-        }
-      } else if (player === 2) {
-        this.points.player_2++; // Sumar un punto al jugador 2
-        if(this.points.player_2 > 6){
-          this.wonSet(2);
-        }
-      }
-    },
-    wonSet(player){
-      console.log(player, "won the set");
-    },
-    restartMatch() {
-      // Reinicia el puntaje y el estado del juego
-      this.points.player_1 = 0;
-      this.points.player_2 = 0;
-      this.energy = 0;
-      this.last_player_golpe = null;
-      this.player_active = 1;
-      this.fading_msg = null;
+      console.log("shot_poewer", shot_power);
     }
 
   }
