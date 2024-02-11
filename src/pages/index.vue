@@ -8,20 +8,21 @@
     </div>
 
     <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
-      <div id="mensenger">{{ this.fading_2 }}</div>
+      <div id="mensenger">{{ this.energy }}</div>
       <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
         <div id="ball"></div>
       </div>
     </div>
 
+
     <div id="joystick">
       <div id="dice">
-        <div :class="{ 'dice-roll': isRolling }" v-if="!diceRolling">{{ diceValue }}</div>
+        <div>{{ dice }}</div>
       </div>
 
       <div id="controlers">
-        <button class="racket" id="racket_p1" @click="golpeP1">P1</button>
-        <button class="racket" id="racket_p2" @click="golpeP2">P2</button>
+        <button class="racket" id="racket_p1" @click="shot(1)">P1</button>
+        <button class="racket" id="racket_p2" @click="shot(2)">P2</button>
       </div>
     </div>
 
@@ -47,89 +48,68 @@ export default {
       fading_msg: null,
       fadding_2: null,
       showElement: true,
-      diceValue: 1,
       diceRolling: false,
-      courtBackgroundColor: '#f2f2f2', // Color de fondo inicial del #court
+      dice: 1,
+      courtBackgroundColor: '#f2f2f2', // Color de fondo inicial del #court,
     }
   },
   methods: {
     rollDice() {
-      this.diceRolling = true;
-      setTimeout(() => {
-        this.diceValue = Math.floor(Math.random() * 6) + 1;
-        this.diceRolling = false;
-      }, 200);
-      return this.diceValue;
+      this.dice = Math.floor(Math.random() * 6) + 1;
+      console.log("dice", this.dice);
+
+      return this.dice;
     },
-    golpeP1() {
-      this.player_active = 2;
-      this.diceValue = this.rollDice();
-      this.fading_msg = this.energy;
-      this.fading_2 = this.energy;
-      if (this.diceValue - this.energy > 0) {
-        this.energy = this.diceValue - this.energy;
-        this.fading_msg += this.diceValue + " >>> " + this.energy;
-        this.fading_2 = this.energy;
+    getPoint(player){
+
+      console.log("punto para", player);
+
+      if(player === 1){
+        this.points.player_1++;
       } else {
-        this.fading_msg += this.diceValue + " FAIL";
-        this.fading_2 = "Fail";
-        this.missPoint();
-        this.wonPoint(2);
+        this.points.player_2++;
+      }
+
+      console.log("marcador", this.points.player_1, " - ", this.points.player_2);
+    },
+    shot(player) {
+      var shot_power = this.rollDice();
+
+
+      if(player === 1){
+        var anti_player = 2;
+        this.player_active = 2;
+      } else {
+        var anti_player = 1;
+        this.player_active = 1;
+      }
+
+      console.log("energy: ",this.energy, "power:", shot_power);
+
+      if(shot_power > this.energy){
+        console.log("hi");
+        this.energy = shot_power - this.energy;
+
+        console.log("new energy: ",this.energy);
+      } else {
+        console.log("hao");
+        this.energy = 0;
         this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
         setTimeout(() => {
           this.courtBackgroundColor = '#f2f2f2'; // Restaurar color de fondo después de 1 segundo
         }, 1000);
+
+        this.getPoint(anti_player);
       }
-    },
-    golpeP2() {
-      this.player_active = 1;
-      this.diceValue = this.rollDice();
-      this.fading_msg = this.energy + " >>> ";
-      this.fading_2 = this.energy;
-      if (this.diceValue - this.energy > 0) {
-        this.energy = this.diceValue - this.energy;
-        this.fading_msg += this.diceValue + " >>> " + this.energy;
-        this.fading_2 = this.energy;
-      } else {
-        this.fading_msg += this.diceValue + " FAIL";
-        this.fading_2 = "FAIL";
-        this.missPoint();
-        this.missPoint();
-        this.wonPoint(1);
-        this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
-        setTimeout(() => {
-          this.courtBackgroundColor = '#f2f2f2'; // Restaurar color de fondo después de 1 segundo
-        }, 1000);
-      }
-    },
-    missPoint() {
-      this.energy = 0;
-      console.log("!", this.energy);
-    },
-    wonPoint(player) {
-      if (player === 1) {
-        this.points.player_1++; // Sumar un punto al jugador 1
-        if (this.points.player_1 > 6) {
-          this.wonSet(1);
-        }
-      } else if (player === 2) {
-        this.points.player_2++; // Sumar un punto al jugador 2
-        if (this.points.player_2 > 6) {
-          this.wonSet(2);
-        }
-      }
-    },
-    wonSet(player) {
-      console.log(player, "won the set");
     },
     restartMatch() {
       // Reinicia el puntaje y el estado del juego
       this.points.player_1 = 0;
       this.points.player_2 = 0;
       this.energy = 0;
-      this.last_player_golpe = null;
       this.player_active = 1;
-      this.fading_msg = null;
+      
+      console.log("marcador", this.points.player_1, " - ", this.points.player_2);
     }
   }
 }
@@ -282,6 +262,27 @@ h1#logo {
 
 .dice-roll {
   transform: scale(1.5);
+}
+
+#pointer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.player-score {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 10px;
+  background-color: #fff;
 }
 
 #pointer {
