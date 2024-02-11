@@ -40,6 +40,8 @@ export default {
     },
     getPoint(player){
 
+      console.log("punto para", player);
+
       if(player === 1){
         this.points.player_1++;
       } else {
@@ -47,7 +49,6 @@ export default {
       }
 
       console.log("marcador", this.points.player_1, " - ", this.points.player_2);
-
     },
     shot(player) {
       var shot_power = this.rollDice();
@@ -68,9 +69,15 @@ export default {
         }
 
         this.getPoint(anti_player);
-
       }
+    },
+    restartMatch() {
+      // Reinicia el puntaje y el estado del juego
+      this.points.player_1 = 0;
+      this.points.player_2 = 0;
+      this.energy = 0;
 
+      console.log("marcador", this.points.player_1, " - ", this.points.player_2);
     }
 
   }
