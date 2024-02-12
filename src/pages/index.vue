@@ -3,12 +3,24 @@
     <h1 id="logo">SMASH</h1>
 
     <div id="pointer">
-      <div class="player-score">{{ points.player_1 }}</div>
-      <div class="player-score">{{ points.player_2 }}</div>
+      
+      <div class="player_score">
+        <div class="player_name" id="player_1_name">Player 1</div>
+        <ul>
+          <li>{{ points.player_1 }}</li>
+        </ul>
+      </div>
+      <div class="player_score">
+        <div class="player_name" id="player_2_name">Player 2</div>
+        <ul>
+          <li>{{ points.player_2 }}</li>
+        </ul>
+      </div>
+
     </div>
 
     <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
-      <div id="mensenger">{{ this.energy }}</div>
+      <div id="energy">{{ this.energy }}</div>
       <div id="barr" :class="{ 'flex-row': player_active === 1, 'flex-row-reverse': player_active === 2 }">
         <div id="ball"></div>
       </div>
@@ -48,7 +60,7 @@ export default {
       showElement: true,
       diceRolling: false,
       dice: 1,
-      courtBackgroundColor: '#f2f2f2', // Color de fondo inicial del #court,
+      courtBackgroundColor: '#ffffff33', // Color de fondo inicial del #court,
     }
   },
   methods: {
@@ -94,7 +106,7 @@ export default {
         this.energy = 0;
         this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
         setTimeout(() => {
-          this.courtBackgroundColor = '#f2f2f2'; // Restaurar color de fondo después de 1 segundo
+          this.courtBackgroundColor = '#ffffff33'; // Restaurar color de fondo después de 1 segundo
         }, 1000);
 
         this.getPoint(anti_player);
@@ -137,6 +149,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #65849f;
   }
 
   h1#logo {
@@ -152,10 +165,10 @@ export default {
   #joystick {
     width: 300px;
     height: 200px;
-    border: 2px solid #dddddd; /* Suavicé el color del borde */
-    background-color: #ffffff;
+    border: 2px solid #dddddd;
+    background-color: #ffffff33;
     border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -185,7 +198,7 @@ export default {
     height: 80px;
     font-size: 24px;
     border: none;
-    background-color: #4caf50; /* Cambié el color del botón */
+    background-color: #4c96af; /* Cambié el color del botón */
     color: #ffffff;
     border-radius: 50%;
     cursor: pointer;
@@ -197,7 +210,7 @@ export default {
   }
 
   .racket:hover {
-    background-color: #43a047; /* Cambié el color al pasar el ratón */
+    background-color: #72b5cc; /* Cambié el color al pasar el ratón */
   }
 
   #buttoner {
@@ -217,7 +230,7 @@ export default {
   }
 
   #restart_btn:hover {
-    background-color: #e53935; /* Cambié el color al pasar el ratón */
+    background-color: #f1655b; /* Cambié el color al pasar el ratón */
   }
 
   #court {
@@ -230,8 +243,14 @@ export default {
     justify-items: center;
     align-items: center;
     transition: background-color 1s ease;
-    background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+    background-color: #ffffff33;
+  }
+
+  #energy{
+    font-size: 28px;
+    font-weight: 800;
+    color: #5e5e5e;
   }
 
   #barr {
@@ -247,7 +266,7 @@ export default {
   #barr #ball {
     height: 100%;
     width: 30px;
-    background-color: #f44336; /* Cambié el color del punto */
+    background-color: #5e5e5e;
   }
 
   .flex-row {
@@ -282,25 +301,44 @@ export default {
 
   #pointer {
     display: flex;
+    flex-direction: column;
+    background-color: #5e5e5e;
+    width: 300px;
+    height: 100px;
+    text-align: left;
     justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    color: #e0e0e0;
+    border: 2px solid #cccccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
   }
 
-  .player-score {
-    width: 50px;
-    height: 50px;
-    border: 2px solid #333333; /* Cambié el color del borde */
-    border-radius: 50%;
+  .player_score {
     display: flex;
-    justify-content: center;
     align-items: center;
     font-size: 24px;
-    font-weight: bold;
-    margin: 0 10px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+    height: 50px;
   }
+
+  .player_name{
+    text-indent: 10px;
+  }
+
+  .player_score li {
+    list-style: none;
+  }
+
+
+  @media only screen and (max-width: 600px) {
+    /* Aquí van tus estilos específicos para dispositivos móviles */
+    #container {
+      justify-content: start;
+    }
+
+  }
+
+
+
 </style>
 
 
