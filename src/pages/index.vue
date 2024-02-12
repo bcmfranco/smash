@@ -34,8 +34,6 @@
 
 <script>
 
-  // Hay algo muy mal con el player_active
-
 export default {
   data() {
     return {
@@ -124,190 +122,185 @@ export default {
 </style>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-* {
-  font-family: Roboto;
-}
+  * {
+    font-family: Roboto;
+    box-sizing: border-box;
+  }
 
-#container {
-  background-color: #f2f2f2;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  #container {
+    background-color: #f5f5f5; /* Cambié el color de fondo */
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-h1#logo {
-  font-size: 48px;
-  font-weight: bold;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  margin-bottom: 20px;
-}
+  h1#logo {
+    font-family: 'Montserrat', sans-serif; /* Cambié la fuente a Montserrat */
+    font-size: 64px; /* Aumenté ligeramente el tamaño */
+    font-weight: 700; /* Aumenté la intensidad del texto */
+    color: #333333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    letter-spacing: 2px; /* Aumenté el espaciado entre letras */
+  }
 
-#joystick {
-  width: 300px;
-  height: 200px;
-  border: 1px solid #cccccc;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  #joystick {
+    width: 300px;
+    height: 200px;
+    border: 2px solid #dddddd; /* Suavicé el color del borde */
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.points {
-  font-size: 24px;
-  border: none;
-  background-color: #e6e6e6;
-  color: #333333;
-  border-radius: 10px;
-  text-align: center;
-  display: grid;
-  align-items: center;
-}
+  .points {
+    font-size: 24px;
+    border: none;
+    background-color: #e0e0e0; /* Suavicé el color de fondo */
+    color: #333333;
+    border-radius: 10px;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    padding: 10px;
+  }
 
-#controlers {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(2, 1fr);
-  justify-items: center;
-  align-items: center;
-}
+  #controlers {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
 
-.racket {
-  width: 80px;
-  height: 80px;
-  font-size: 24px;
-  border: none;
-  background-color: #66cc66;
-  color: #ffffff;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  .racket {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+    border: none;
+    background-color: #4caf50; /* Cambié el color del botón */
+    color: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+  }
 
-.racket:hover {
-  background-color: #4caf50;
-}
+  .racket:hover {
+    background-color: #43a047; /* Cambié el color al pasar el ratón */
+  }
 
-#buttoner {
-  margin-top: 20px;
-}
+  #buttoner {
+    margin-top: 20px;
+  }
 
-#restart_btn {
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #ff6666;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  #restart_btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f44336; /* Cambié el color del botón */
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+  }
 
-#restart_btn:hover {
-  background-color: #ff3333;
-}
+  #restart_btn:hover {
+    background-color: #e53935; /* Cambié el color al pasar el ratón */
+  }
 
-#court {
-  border: 2px solid #999999;
-  width: 400px;
-  height: 150px;
-  margin: 10px auto 20px auto;
-  border-radius: 15px;
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  transition: background-color 1s ease; /* Transición de color de fondo */
-}
+  #court {
+    border: 2px solid #cccccc; /* Cambié el color del borde */
+    width: 400px;
+    height: 150px;
+    margin: 10px auto 20px auto;
+    border-radius: 15px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    transition: background-color 1s ease;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+  }
 
-#barr {
-  width: 300px;
-  height: 30px;
-  background-color: #e6e6e6;
-  display: flex;
-  align-items: center;
-  border-radius: 15px;
-  overflow: hidden;
-}
+  #barr {
+    width: 300px;
+    height: 30px;
+    background-color: #eeeeee; /* Suavicé el color de fondo */
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+  }
 
-#barr #ball {
-  height: 100%;
-  width: 30px;
-  background-color: #ff3333;
-}
+  #barr #ball {
+    height: 100%;
+    width: 30px;
+    background-color: #f44336; /* Cambié el color del punto */
+  }
 
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
 
-.flex-row-reverse {
-  display: flex;
-  flex-direction: row-reverse;
-}
+  .flex-row-reverse {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 
-#dice {
-  font-size: 48px;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: #b0bec5;
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  margin: 10px auto;
-}
+  #dice {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #9e9e9e; /* Cambié el color de fondo */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Suavicé la sombra */
+    margin: 10px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+  }
 
-.dice-roll {
-  transform: scale(1.5);
-}
+  .dice-roll {
+    transform: scale(1.5);
+  }
 
-#pointer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
+  #pointer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
 
-.player-score {
-  width: 50px;
-  height: 50px;
-  border: 2px solid #000;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0 10px;
-  background-color: #fff;
-}
-
-#pointer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.player-score {
-  width: 50px;
-  height: 50px;
-  border: 2px solid #000;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0 10px;
-  background-color: #fff;
-}
-
+  .player-score {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333333; /* Cambié el color del borde */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+  }
 </style>
+
+
